@@ -3,7 +3,7 @@ public class Sprite2 {
     private int height;
     private int[] pixels;
 
-    public Sprite(int w, int h) {
+    public Sprite2(int w, int h) {
         this.width = w;
         this.height = h;
         pixels = new int[w*h];
