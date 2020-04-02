@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -20,38 +22,44 @@ public class Graphics extends Canvas implements Runnable {
     private JFrame frame;
     private BufferedImage image;
     private int[] pixels;
+    private int scale;
 
     private Thread thread;
     private boolean running = false;
     private int fps = 60;
-    private int ups = 60;
+    private int ups = 30;
 
+    private Sprite s;
+    private Sprite square1;
+    private Sprite square2;
+
+    private double t = 0;
     private int xSquare1 = 0;
     private int ySquare1 = 0;
     private int vxSquare1 = 0;
     private int vySquare1 = 0;
+    private int xSquare2 = 100;
+    private int ySquare2 = 100;
 
-    private double t=0;
-    private Sprite s;
-    private Sprite2 s2;
-    private Sprite square1;
-    public Graphics(int w, int h) {
+    public Graphics(int w, int h, int scale) {
         this.width = w;
         this.height = h;
+        this.scale = scale;
         image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-        Dimension size = new Dimension(width, height);
+        Dimension size = new Dimension(scale*width, scale*height);
         setPreferredSize(size);
         frame = new JFrame();
-        frame.setTitle(title);
+        frame.setTitle("Space Cars");
         frame.add(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        this.addKeyListener(new MyKeyListener());
+        this.requestFocus();
 
-        s = new Sprite(32,32, 0xFFFF00);
-        square1 = new Sprite(48,48,0xFF00FF);
+        square1 = new Sprite(16,16,0x80330A);
     }
 
     private void draw() {
@@ -68,17 +76,10 @@ public class Graphics extends Canvas implements Runnable {
     }
 
     private void update() {
-        t += Math.PI/180;
-
-        int x = (int) (width / 2 + (width / 2 - s.getWidth()) * Math.sin(t));
-        int y = (int) (height / 2 + (height / 2 - s.getHeight()) * Math.cos(t));
-
-        for (int i = 0; i < s.getHeight(); i++) {
-            for (int j = 0; j < s.getWidth(); j++) {
-                pixels[(y + i) * width + x + j] = s.getPixels()[i * s.getWidth() + j];
-            }
+        for (int i = 0 ; i < pixels.length ; i++) {
+            pixels[i] = 0;
         }
-
+        // The moving magenta square
         if (xSquare1 + vxSquare1 < 0 || xSquare1 + vxSquare1 > width - square1.getWidth())
             vxSquare1 = 0;
         if (ySquare1 + vySquare1 < 0 || ySquare1 + vySquare1 > height - square1.getHeight())
@@ -92,7 +93,10 @@ public class Graphics extends Canvas implements Runnable {
                 pixels[(ySquare1+i)*width + xSquare1+j] = square1.getPixels()[i*square1.getWidth()+j];
             }
         }
+
+
     }
+
     public synchronized void start() {
         running = true;
         thread = new Thread(this);
@@ -107,7 +111,6 @@ public class Graphics extends Canvas implements Runnable {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void run() {
@@ -165,3 +168,4 @@ public class Graphics extends Canvas implements Runnable {
         }
     }
 }
+

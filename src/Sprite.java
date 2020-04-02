@@ -33,7 +33,7 @@ public class Sprite {
         }
     }
 
-    /*public Sprite(String path) {
+    public Sprite(String path) {
         BufferedImage image = null;
         try {
             BufferedImage rawImage = ImageIO.read(new File(path));
@@ -48,7 +48,6 @@ public class Sprite {
         this.height = image.getHeight();
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     }
-    */
 
     public int[] getPixels() {
         return pixels;
