@@ -27,42 +27,42 @@ public class Graphics extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
     private int fps = 60;
-    private int ups = 30;
+    private int ups = 60;
 
-    private Sprite s;
-    private Sprite square1;
-    private Sprite square2;
-
-    private double t = 0;
-    private int xSquare1 = 0;
-    private int ySquare1 = 0;
-    private int vxSquare1 = 0;
-    private int vySquare1 = 0;
-    private int xSquare2 = 100;
-    private int ySquare2 = 100;
+    private Ball b;
+    private Paddle paddle;
 
     public Graphics(int w, int h, int scale) {
         this.width = w;
         this.height = h;
         this.scale = scale;
-        image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-        Dimension size = new Dimension(scale*width, scale*height);
+        Dimension size = new Dimension(scale * width, scale * height);
         setPreferredSize(size);
         frame = new JFrame();
-        frame.setTitle("Space Cars");
+        frame.setTitle(title);
         frame.add(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
         this.addKeyListener(new MyKeyListener());
         this.requestFocus();
 
-        square1 = new Sprite(16,16,0x80330A);
+        b = new Ball(200, 100);
+        paddle = new Paddle(0, 0, 0xFFFF0000);
     }
 
     private void draw() {
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = 0xFF000000;
+        }
+        b.draw(pixels, width);
+        paddle.draw(pixels, width);
+
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
@@ -76,25 +76,8 @@ public class Graphics extends Canvas implements Runnable {
     }
 
     private void update() {
-        for (int i = 0 ; i < pixels.length ; i++) {
-            pixels[i] = 0;
-        }
-        // The moving magenta square
-        if (xSquare1 + vxSquare1 < 0 || xSquare1 + vxSquare1 > width - square1.getWidth())
-            vxSquare1 = 0;
-        if (ySquare1 + vySquare1 < 0 || ySquare1 + vySquare1 > height - square1.getHeight())
-            vySquare1 = 0;
-
-        xSquare1 += vxSquare1;
-        ySquare1 += vySquare1;
-
-        for (int i = 0 ; i < square1.getHeight() ; i++) {
-            for (int j = 0 ; j < square1.getWidth() ; j++) {
-                pixels[(ySquare1+i)*width + xSquare1+j] = square1.getPixels()[i*square1.getWidth()+j];
-            }
-        }
-
-
+        b.update(paddle.getBoundingBox());
+        paddle.update();
     }
 
     public synchronized void start() {
@@ -147,25 +130,12 @@ public class Graphics extends Canvas implements Runnable {
 
         @Override
         public void keyPressed(KeyEvent keyEvent) {
-            if (keyEvent.getKeyChar()=='a') {
-                vxSquare1 = -5;
-            } else if (keyEvent.getKeyChar()=='d') {
-                vxSquare1 = 5;
-            } else if (keyEvent.getKeyChar()=='w') {
-                vySquare1 = -5;
-            } else if (keyEvent.getKeyChar()=='s') {
-                vySquare1 = 5;
-            }
+            paddle.keyPressed(keyEvent);
         }
 
         @Override
         public void keyReleased(KeyEvent keyEvent) {
-            if (keyEvent.getKeyChar()=='a' || keyEvent.getKeyChar()=='d') {
-                vxSquare1 = 0;
-            } else if (keyEvent.getKeyChar()=='w' || keyEvent.getKeyChar()=='s') {
-                vySquare1 = 0;
-            }
+            paddle.keyReleased(keyEvent);
         }
     }
 }
-
