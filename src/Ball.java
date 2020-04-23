@@ -37,16 +37,16 @@ public class Ball {
 
     public static void keyReleased(KeyEvent e){
         if(e.getKeyCode() == e.VK_LEFT){
-            setXDirection(-1);
+            setXDirection(0);
         }
         if(e.getKeyCode() == e.VK_RIGHT){
-            setXDirection(1);
+            setXDirection(0);
         }
         if(e.getKeyCode() == e.VK_UP){
-            setYDirection(-1);
+            setYDirection(0);
         }
         if(e.getKeyCode() == e.VK_DOWN){
-            setYDirection(1);
+            setYDirection(0);
         }
 
     }

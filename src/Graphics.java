@@ -31,6 +31,7 @@ public class Graphics extends Canvas implements Runnable {
 
     private Ball b;
     private Paddle paddle;
+    private Sprite s;
 
     public Graphics(int w, int h, int scale) {
         this.width = w;
@@ -52,6 +53,7 @@ public class Graphics extends Canvas implements Runnable {
         this.addKeyListener(new MyKeyListener());
         this.requestFocus();
 
+        s = new Sprite("Mållinje.png");
         b = new Ball(0, 0);
         paddle = new Paddle(80, 55, 0xFFFFFF00);
     }
