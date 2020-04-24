@@ -64,6 +64,7 @@ public class Graphics extends Canvas implements Runnable {
         }
         b.draw(pixels, width);
         paddle.draw(pixels, width);
+        s.draw(pixels,width);
 
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {

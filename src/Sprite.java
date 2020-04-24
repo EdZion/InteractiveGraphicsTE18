@@ -1,6 +1,7 @@
 import com.sun.org.apache.bcel.internal.classfile.Code;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
@@ -16,6 +17,7 @@ public class Sprite {
     private int width;
     private int height;
     private int[] pixels;
+    private Rectangle boundingBox;
 
     public Sprite(int w, int h) {
         this.width = w;
@@ -51,6 +53,13 @@ public class Sprite {
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     }
 
+    public void draw(int[] Screen, int screenWidth){
+        for (int i = 0 ; i < height ; i++) {
+            for (int j = 0 ; j < width ; j++) {
+                Screen[(boundingBox.y+i)*screenWidth + boundingBox.x+j] = pixels[i*width+j];
+            }
+        }
+    }
     public int[] getPixels() {
         return pixels;
     }

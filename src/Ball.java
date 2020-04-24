@@ -22,16 +22,16 @@ public class Ball {
 
     public static void keyPressed(KeyEvent e){
         if(e.getKeyCode() == e.VK_LEFT){
-            setXDirection(-1);
+            setXDirection(-2);
         }
         if(e.getKeyCode() == e.VK_RIGHT){
-            setXDirection(1);
+            setXDirection(2);
         }
         if(e.getKeyCode() == e.VK_UP){
-            setYDirection(-1);
+            setYDirection(-2);
         }
         if(e.getKeyCode() == e.VK_DOWN){
-            setYDirection(1);
+            setYDirection(2);
         }
     }
 
