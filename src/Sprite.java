@@ -51,6 +51,7 @@ public class Sprite {
         this.width = image.getWidth();
         this.height = image.getHeight();
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+        boundingBox = new Rectangle();
     }
 
     public void draw(int[] Screen, int screenWidth){
