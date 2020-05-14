@@ -11,27 +11,27 @@ public class Ball {
     private int height = 10;
     private int width = 10;
 
-    public Ball(int x, int y){
+    public Ball(int x, int y,int col){
         pixels = new int[width*height];
 
         for (int i = 0 ; i < pixels.length ; i++)
-            pixels[i] = 0xFFFFFFFF;
+            pixels[i] = col;
 
         boundingBox = new Rectangle(x, y, width, height);
     }
 
     public static void keyPressed(KeyEvent e){
         if(e.getKeyCode() == e.VK_LEFT){
-            setXDirection(-2);
+            setXDirection(-3);
         }
         if(e.getKeyCode() == e.VK_RIGHT){
-            setXDirection(2);
+            setXDirection(3);
         }
         if(e.getKeyCode() == e.VK_UP){
-            setYDirection(-2);
+            setYDirection(-3);
         }
         if(e.getKeyCode() == e.VK_DOWN){
-            setYDirection(2);
+            setYDirection(3);
         }
     }
 

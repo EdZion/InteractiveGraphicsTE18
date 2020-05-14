@@ -52,9 +52,10 @@ public class Graphics extends Canvas implements Runnable {
         this.addKeyListener(new MyKeyListener());
         this.requestFocus();
 
-        s = new Sprite("Mållinje.png",0,150);
-        b = new Ball(30, 150);
-        paddle = new Paddle(80, 55, 0x008000);
+
+        b = new Ball(37, 110, 0x0351F2);
+        s = new Sprite("Mållinje.png",0,135);
+        paddle = new Paddle(75, 55, 0x1E7304);
     }
 
     private void draw() {

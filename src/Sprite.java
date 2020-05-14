@@ -33,7 +33,7 @@ public class Sprite {
         this.width = image.getWidth();
         this.height = image.getHeight();
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-        boundingBox = new Rectangle();
+        boundingBox = new Rectangle(x, y, width, height);
     }
 
     public void draw(int[] Screen, int screenWidth){
@@ -41,23 +41,6 @@ public class Sprite {
             for (int j = 0 ; j < width ; j++) {
                 Screen[(boundingBox.y+i)*screenWidth + boundingBox.x+j] = pixels[i*width+j];
             }
-        }
-    }
-    public int[] getPixels() {
-        return pixels;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setColor(int color) {
-        for (int i = 0 ; i < pixels.length ; i++) {
-            pixels[i] = color;
         }
     }
 }
