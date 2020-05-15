@@ -1,10 +1,11 @@
 import java.awt.*;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-
+/**
+ * This is a class
+ * Created 2020-03-25
+ * @author Magnus Silverdal
+ * Edited by Alexander Holmström.
+ */
 public class Paddle {
-    private int xDirection;
-    private int yDirection;
     private int[] pixels;
     private Rectangle boundingBox;
     private int width = 250;
@@ -19,34 +20,8 @@ public class Paddle {
     }
 
 
-    public void setXDirection(int xdir) {
-        xDirection = xdir;
-    }
-
-    public void setYDirection(int ydir){
-        yDirection = ydir;
-    }
-
-
     public Rectangle getBoundingBox() {
         return boundingBox;
-    }
-
-    public void update(){
-        boundingBox.x += xDirection;
-        if(boundingBox.x <= 0) {
-            boundingBox.x = 0;
-        }
-        if(boundingBox.x >= 380) {
-            boundingBox.x = 380;
-        }
-        boundingBox.y += yDirection;
-        if(boundingBox.y <= 0) {
-            boundingBox.y = 0;
-        }
-        if(boundingBox.y >= 280) {
-            boundingBox.y = 280;
-        }
     }
 
     public void draw(int[] Screen, int screenWidth){

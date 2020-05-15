@@ -1,8 +1,11 @@
 import java.awt.*;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.Random;
-
+/**
+ * This is a class
+ * Created 2020-03-25
+ * @author Magnus Silverdal
+ * Edited by Alexander Holmström.
+ */
 public class Ball {
     private static int yDirection;
     private static int xDirection;
@@ -95,7 +98,6 @@ public class Ball {
     public void move() {
         boundingBox.x += xDirection;
         boundingBox.y += yDirection;
-        //Bounce the ball when edge is detected
         if (boundingBox.x <= 0) {
             setXDirection(0);
         }

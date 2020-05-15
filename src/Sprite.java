@@ -1,17 +1,14 @@
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
-
 /**
  * This is a class
- * Created 2020-03-26
- *
+ * Created 2020-03-25
  * @author Magnus Silverdal
+ * Edited by Alexander Holmström.
  */
 public class Sprite {
     private int width;
